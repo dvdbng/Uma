@@ -8,7 +8,7 @@ addi $3, $0, 1
 sleep: # Sleep for $4*100 ms
 	beq $4, $0, sleep_exit
 
-	lui $5, 50
+	lui $5, 10
 	nop
 	nop
 	nop
