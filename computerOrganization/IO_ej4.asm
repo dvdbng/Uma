@@ -4,11 +4,10 @@ lui $1, 0x0001 # LEDS
 lui $2, 0x0002
 addi $3, $0, 1
 
+j start
 
 sleep: # Sleep for $4*100 ms
-	beq $4, $0, sleep_exit
-
-	lui $5, 10
+	lui $5, 7
 	nop
 	nop
 	nop
@@ -19,12 +18,13 @@ sleep: # Sleep for $4*100 ms
 		nop
 		nop
 		bne $5, $0, sleep_inner
-		
-	subi $4, $4, 1
-	j sleep
 
-	sleep_exit:
-		jr $ra
+	subi $4, $4, 1
+    nop
+    nop
+    nop
+	bne $4, $0, sleep
+    jr $ra
 
 
 start:
