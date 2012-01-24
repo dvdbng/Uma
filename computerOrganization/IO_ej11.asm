@@ -1,9 +1,18 @@
 .text
+loop: j loop
+
+
+.ktext
+
+mfc0 $25, $14
+mfc0 $26, $13
 
 lui $1, 0x0001 # LEDS
 lui $2, 0x0002
 
-start:
+nop
+nop
+nop
 
 lw $3, 0($2)
 
@@ -40,4 +49,6 @@ nop
 nop
 sw $7, 3($1)
 
-j start
+
+eret
+jr $25

@@ -1,32 +1,80 @@
 .text
 
-lui $1, 0x0001
+lui $1, 0x0001 # LEDS
 lui $2, 0x0002
-
-addi $3, $0, 0 # led 1
-addi $4, $0, 0 # led 2
-addi $5, $0, 0 # led 3
-
-start:
-
-lw $6, 3($2)
-lw $7, 2($2)
-lw $8, 1($2)
-
-nop
-
-or $3, $3, $6
-or $4, $4, $7
-or $5, $5, $8
-
-nop
-
-sw $3, 1($1)
-sw $4, 2($1)
-sw $5, 3($1)
+addi $3, $0, 1
 
 j start
 
+sleep: # Sleep for $4*100 ms
+	lui $5, 5
+	sleep_inner:
+		nop
+		nop
+		nop
+		addi $5, $5, -1
+		nop
+		nop
+		nop
+		bne $5, $0, sleep_inner
+
+	nop
+	nop
+	nop
+	addi $4, $4, -1
+	nop
+	nop
+	nop	
+    	bne $4, $0, sleep
+	nop
+	nop
+	nop
+	jr $ra
 
 
+start:
 
+nop
+nop
+nop
+
+sw $0, 3($1)
+sw $3, 0($1)
+addi $4,$0,10
+jal sleep
+
+nop
+nop
+nop
+
+sw $0, 0($1)
+sw $3, 1($1)
+
+addi $4,$0,10
+jal sleep
+
+nop
+nop
+nop
+
+sw $0, 1($1)
+sw $3, 2($1)
+
+addi $4,$0,10
+jal sleep
+
+nop
+nop
+nop
+
+sw $0, 2($1)
+sw $3, 3($1)
+
+addi $4,$0,10
+jal sleep
+
+nop
+nop
+nop
+
+j start
